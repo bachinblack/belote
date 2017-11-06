@@ -1,0 +1,31 @@
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'application'
+
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        compile 'com.google.guava:guava:22.0'
+        compile "com.esotericsoftware:kryonet:2.22.0-RC1"
+        compile "com.esotericsoftware:kryo:4.0.1"
+        testCompile 'junit:junit:4.12'
+    }
+
+    jar {
+        destinationDir = file("$rootDir/target")
+        manifest {
+            attributes "Main-Class": "App"
+        }
+        from {
+            configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+        }
+    }
+
+    mainClassName = 'App'
+
+    task "package"(type: Jar, dependsOn: jar) {
+    }
+}
+

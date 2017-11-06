@@ -1,0 +1,4 @@
+include "client", "server"
+
+project(":client").name = "jcoinche-client"
+project(":server").name = "jcoinche-server"
